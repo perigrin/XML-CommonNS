@@ -1,5 +1,6 @@
 
 use Test;
+use strict;
 BEGIN { plan tests => 5 };
 use XML::CommonNS qw(SVG XHTML2 RNG);
 ok(1);

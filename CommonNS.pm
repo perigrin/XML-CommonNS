@@ -3,8 +3,10 @@ package XML::CommonNS;
 
 use strict;
 use XML::NamespaceFactory	qw();
-use vars qw($VERSION %NS);
-$VERSION = '0.01';
+use Exporter;
+use vars qw($VERSION %NS @ISA @EXPORT_OK);
+$VERSION = '0.02';
+@ISA = qw(Exporter);
 
 sub BEGIN {
 	%NS = (
@@ -37,11 +39,12 @@ sub BEGIN {
 	no strict 'refs';
 	while (my ($k, $v) = each %NS) {
 		${__PACKAGE__ . "::$k"} = XML::NamespaceFactory->new($v);
-	}
+        push @EXPORT_OK, '$' . $k;
+    }
 }
 
 sub import {
-	shift;
+	my $class = shift;
 	my $pkg = caller;
 	my @opt = @_;
 
@@ -49,8 +52,9 @@ sub import {
 	@opt = keys %NS if $opt[0] eq ':all';
 	for my $exp (@opt) {
 		die "No namespace available for key $exp" unless exists $NS{$exp};
-		${$pkg . "::$exp"} = ${__PACKAGE__ . "::$exp"};
-	}
+		#${$pkg . "::$exp"} = ${__PACKAGE__ . "::$exp"};
+        __PACKAGE__->export_to_level( 1, $class, '$' . $exp );
+    }
 
 	return 1;
 }
