@@ -1,11 +1,10 @@
-
 package XML::CommonNS;
 
 use strict;
-use XML::NamespaceFactory	qw();
+use XML::NamespaceFactory qw();
 use Exporter;
 use vars qw($VERSION %NS @ISA @EXPORT_OK);
-$VERSION = '0.02';
+$VERSION = '0.03';
 @ISA = qw(Exporter);
 
 sub BEGIN {
@@ -19,9 +18,15 @@ sub BEGIN {
 			XFORMS 		=> 'http://www.w3.org/2002/xforms/cr',
 			XMLEVENTS	=> 'http://www.w3.org/2001/xml-events',
 			DC 			=> 'http://purl.org/dc/elements/1.1/',
+			DC_TERMS	=> 'http://purl.org/dc/terms/',
 			RDF 		=> 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
 			RDFS 		=> 'http://www.w3.org/2000/01/rdf-schema#',
 			OWL			=> 'http://www.w3.org/2002/07/owl#',
+			FOAF        => 'http://xmlns.com/foaf/0.1/',
+			REL	        => 'http://purl.org/vocab/relationship/',
+			RSS1	    => 'http://purl.org/rss/1.0/',	
+			COMMENTS	=> 'http://purl.org/net/rssmodules/blogcomments/',
+			SYN		    => 'http://purl.org/rss/1.0/modules/syndication/',		
 			RNG 		=> 'http://relaxng.org/ns/structure/1.0',
 			XSD 		=> 'http://www.w3.org/2001/XMLSchema',
 			XSI 		=> 'http://www.w3.org/2001/XMLSchema-instance',
@@ -34,7 +39,7 @@ sub BEGIN {
 			SOAPENV12	=> 'http://www.w3.org/2003/05/soap-envelope',
 			WSDL11		=> 'http://schemas.xmlsoap.org/wsdl/',
 			WSDL12		=> 'http://www.w3.org/2003/06/wsdl',
-		  	 );
+	);
 
 	no strict 'refs';
 	while (my ($k, $v) = each %NS) {
@@ -69,8 +74,19 @@ XML::CommonNS - A list of commonly used namespaces
 
 =head1 SYNOPSIS
 
-  use XML::CommonNS (The NS I Want);
-
+	# import $RDF, $RDFS, $OWL, $DC
+	use XML::CommonNS qw(RDF RDFS OWL DC);
+	
+	my %CONFIG = (
+	    Namespaces    => {		    
+	        rdf  => "$RDF",
+	        rdfs => "$RDFS",
+	        owl  => "$OWL",
+	        foaf => "$FOAF",
+	    },
+	    ExpandQNames => 1,
+	);
+	
 =head1 DESCRIPTION
 All you need do to use this module is import the namespaces you
 
@@ -100,13 +116,19 @@ changes.
 	XLINK 		http://www.w3.org/1999/xlink
 	SVG 		http://www.w3.org/2000/svg
 	XHTML 		http://www.w3.org/1999/xhtml
-	XHTML2		http://www.w3.org/2002/06/xhtml2   *
-	XFORMS 		http://www.w3.org/2002/xforms/cr   *
+	XHTML2		http://www.w3.org/2002/06/xhtml2
+	XFORMS 		http://www.w3.org/2002/xforms/cr
 	XMLEVENTS	http://www.w3.org/2001/xml-events
 	DC 			http://purl.org/dc/elements/1.1/
+	DC_TERMS	http://purl.org/dc/terms/
 	RDF 		http://www.w3.org/1999/02/22-rdf-syntax-ns#
 	RDFS 		http://www.w3.org/2000/01/rdf-schema#
 	OWL			http://www.w3.org/2002/07/owl#
+	FOAF        http://xmlns.com/foaf/0.1/
+	REL	        http://purl.org/vocab/relationship/
+	RSS1	    http://purl.org/rss/1.0/	
+	COMMENTS	http://purl.org/net/rssmodules/blogcomments/
+	SYN		    http://purl.org/rss/1.0/modules/syndication/		
 	RNG 		http://relaxng.org/ns/structure/1.0
 	XSD 		http://www.w3.org/2001/XMLSchema
 	XSI 		http://www.w3.org/2001/XMLSchema-instance
@@ -122,6 +144,7 @@ changes.
 
 =head1 AUTHOR
 
+Chris Prather, E<lt>chris@prather.orgE<gt>
 Robin Berjon, E<lt>robin.berjon@expway.frE<gt>
 
 =head1 COPYRIGHT AND LICENSE
