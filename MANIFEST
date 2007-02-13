@@ -1,6 +1,12 @@
+Build.PL
 Changes
-CommonNS.pm
-Makefile.PL
 MANIFEST
+META.yml # Will be created by "make dist"
+Makefile.PL
 README
+lib/XML/CommonNS.pm
+t/00.load.t
 t/05-basics.t
+t/perlcritic.t
+t/pod-coverage.t
+t/pod.t

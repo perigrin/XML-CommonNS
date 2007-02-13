@@ -4,7 +4,7 @@ use strict;
 use XML::NamespaceFactory qw();
 use Exporter;
 use vars qw($VERSION %NS @ISA @EXPORT_OK);
-$VERSION = '0.03';
+$VERSION = '0.04';
 @ISA = qw(Exporter);
 
 sub BEGIN {
@@ -64,6 +64,12 @@ sub import {
 	return 1;
 }
 
+sub uri {
+	my ($self, $uri) = @_;
+	no strict 'refs';
+	return ${__PACKAGE__ . "::$uri"};
+}
+
 1;
 
 =pod
@@ -86,6 +92,10 @@ XML::CommonNS - A list of commonly used namespaces
 	    },
 	    ExpandQNames => 1,
 	);
+	
+	# or the uri() method
+	
+	my $foaf = XML::CommonNS->uri('FOAF');
 	
 =head1 DESCRIPTION
 All you need do to use this module is import the namespaces you
@@ -141,6 +151,16 @@ changes.
 	SOAPENV12	http://www.w3.org/2003/05/soap-envelope
 	WSDL11		http://schemas.xmlsoap.org/wsdl/
 	WSDL12		http://www.w3.org/2003/06/wsdl
+
+=head1 METHODS
+
+=over
+
+=item uri
+	
+	Allows you to directly retrieve one of the URI objects without doing the import() dance.
+	
+=back
 
 =head1 AUTHOR
 
