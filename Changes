@@ -1,5 +1,8 @@
 XML::CommonNS
 
+0.05 2007-02-13
+    - fix pre-reqs in the dist 
+
 0.04 2007-02-12
     - updated packaging to clean up the dist
     - added a uri() method at kasei's request

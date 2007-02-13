@@ -4,7 +4,7 @@ use strict;
 use XML::NamespaceFactory qw();
 use Exporter;
 use vars qw($VERSION %NS @ISA @EXPORT_OK);
-$VERSION = '0.04';
+$VERSION = '0.05';
 @ISA = qw(Exporter);
 
 sub BEGIN {
