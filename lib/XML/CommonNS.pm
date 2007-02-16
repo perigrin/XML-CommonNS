@@ -1,10 +1,10 @@
 package XML::CommonNS;
-
 use strict;
+use warnings;
 use XML::NamespaceFactory qw();
 use Exporter;
 use vars qw($VERSION %NS @ISA @EXPORT_OK);
-$VERSION = '0.05';
+$VERSION = '0.06';
 @ISA = qw(Exporter);
 
 sub BEGIN {
@@ -41,9 +41,7 @@ sub BEGIN {
 			WSDL12		=> 'http://www.w3.org/2003/06/wsdl',
 	);
 
-	no strict 'refs';
-	while (my ($k, $v) = each %NS) {
-		${__PACKAGE__ . "::$k"} = XML::NamespaceFactory->new($v);
+	while (my ($k, $v) = each %NS) {		
         push @EXPORT_OK, '$' . $k;
     }
 }
@@ -57,17 +55,20 @@ sub import {
 	@opt = keys %NS if $opt[0] eq ':all';
 	for my $exp (@opt) {
 		die "No namespace available for key $exp" unless exists $NS{$exp};
-		#${$pkg . "::$exp"} = ${__PACKAGE__ . "::$exp"};
-        __PACKAGE__->export_to_level( 1, $class, '$' . $exp );
+		__PACKAGE__->uri($exp);
+		__PACKAGE__->export_to_level( 1, $class, '$' . $exp );
     }
 
 	return 1;
 }
 
 sub uri {
-	my ($self, $uri) = @_;
+	my ($self, $exp) = @_;
 	no strict 'refs';
-	return ${__PACKAGE__ . "::$uri"};
+	unless (defined ${__PACKAGE__ . "::$exp"} ) {
+		${__PACKAGE__ . "::$exp"} = XML::NamespaceFactory->new($NS{$exp});
+	}
+	return ${__PACKAGE__ . "::$exp"};
 }
 
 1;

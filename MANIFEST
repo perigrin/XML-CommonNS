@@ -7,6 +7,3 @@ README
 lib/XML/CommonNS.pm
 t/00.load.t
 t/05-basics.t
-t/perlcritic.t
-t/pod-coverage.t
-t/pod.t

@@ -9,7 +9,6 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/XML/CommonNS.pm',
     requires => {
 		'XML::NamespaceFactory'	=> 0,
-		'Test::Perl::Critic'	=> 0,
         'Test::More' => 0,
         'version'    => 0,
     },

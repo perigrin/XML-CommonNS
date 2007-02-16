@@ -10,7 +10,6 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
 		'XML::NamespaceFactory'	=> 0,
-		'Test::Perl::Critic'	=> 0,
         'Test::More' => 0,
         'version'    => 0,
     },

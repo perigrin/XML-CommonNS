@@ -1,5 +1,9 @@
 XML::CommonNS
 
+0.06 2007-02-15
+    - change from creating exported variables at compile time, to when they're actually requested, 
+      which could be compile time
+
 0.05 2007-02-13
     - fix pre-reqs in the dist 
 
